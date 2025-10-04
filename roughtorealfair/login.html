@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Animated Login — Ultra Refined Edition</title>
+<style>
+  :root{
+    --card-bg: #ffffff;
+    --accent: #4facfe;
+    --accent-2: #00f2fe;
+    --muted: #666;
+    --shadow: 0 12px 30px rgba(16,24,40,0.12);
+    --success: #10b981;
+    --error: #ef4444;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    background: linear-gradient(135deg,var(--accent) 0%, var(--accent-2) 100%);
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;
+    transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position:relative;
+    overflow:hidden;
+  }
+  body::before{
+    content:'';
+    position:absolute;
+    width:600px;height:600px;
+    background:radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border-radius:50%;
+    top:-200px;right:-200px;
+    animation:pulse 8s ease-in-out infinite;
+  }
+  body::after{
+    content:'';
+    position:absolute;
+    width:400px;height:400px;
+    background:radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    border-radius:50%;
+    bottom:-100px;left:-100px;
+    animation:pulse 6s ease-in-out infinite reverse;
+  }
+  @keyframes pulse{
+    0%,100%{transform:scale(1);opacity:0.5}
+    50%{transform:scale(1.1);opacity:0.8}
+  }
+  .card{
+    width: 360px;
+    background: var(--card-bg);
+    border-radius:16px;
+    padding:40px 28px 28px;
+    box-shadow: var(--shadow);
+    position:relative;
+    text-align:center;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+    z-index:1;
+  }
+  .card:hover{
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(16,24,40,0.25);
+  }
+  .hero{
+    position:absolute;
+    left:50%;top:-100px;
+    transform:translateX(-50%);
+    width:160px;height:160px;
+    animation: float 3.8s ease-in-out infinite;
+    pointer-events:auto;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter:drop-shadow(0 8px 16px rgba(0,0,0,0.1));
+    cursor:pointer;
+  }
+  .hero:hover{
+    transform:translateX(-50%) scale(1.05);
+    filter:drop-shadow(0 12px 24px rgba(0,0,0,0.15));
+  }
+  @keyframes float{
+    0%,100%{transform:translateX(-50%) translateY(0)}
+    50%{transform:translateX(-50%) translateY(-12px)}
+  }
+  h1{
+    margin-top:40px;margin-bottom:6px;font-size:20px;color:#111;
+    transition: all 0.3s ease;
+    font-weight:700;
+    letter-spacing:-0.02em;
+  }
+  p.lead{
+    margin:0 0 18px;color:var(--muted);font-size:13px;
+    transition:color 0.3s ease;
+  }
+  form{display:block}
+  .field{
+    margin:12px 0 18px;text-align:left;position:relative;
+    animation:slideIn 0.5s ease backwards;
+  }
+  .field:nth-child(1){animation-delay:0.1s}
+  .field:nth-child(2){animation-delay:0.2s}
+  @keyframes slideIn{
+    from{opacity:0;transform:translateY(20px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  label{
+    display:block;font-size:13px;color:var(--muted);margin-bottom:6px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight:500;
+  }
+  .field:focus-within label{
+    color:var(--accent);
+    transform:translateX(2px);
+  }
+  input[type="text"],input[type="password"]{
+    width:100%;padding:12px 14px;
+    border-radius:10px;border:1px solid #e6e9ef;
+    font-size:15px;outline:none;
+    transition:all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    background: linear-gradient(to bottom, #ffffff 0%, #fafbfc 100%);
+  }
+  input:focus{
+    border-color:var(--accent);
+    box-shadow:0 8px 24px rgba(79,172,254,0.2), 0 0 0 4px rgba(79,172,254,0.1);
+    transform:translateY(-2px) scale(1.01);
+    background:#fff;
+  }
+  input.valid{
+    border-color:var(--success);
+    background:linear-gradient(to right, #ffffff 0%, #f0fdf4 100%);
+  }
+  input.invalid{
+    border-color:var(--error);
+    background:linear-gradient(to right, #ffffff 0%, #fef2f2 100%);
+  }
+  .field-icon{
+    position:absolute;
+    right:14px;
+    top:36px;
+    font-size:18px;
+    opacity:0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform:scale(0.5) rotate(-180deg);
+  }
+  .field-icon.show{
+    opacity:1;
+    transform:scale(1) rotate(0deg);
+  }
+  button{
+    width:100%;padding:12px;margin-top:6px;
+    border-radius:10px;border:0;
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);
+    color:white;font-weight:600;cursor:pointer;font-size:15px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(79,172,254,0.3);
+    animation:slideIn 0.5s ease backwards 0.3s;
+  }
+  button:hover{
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(79,172,254,0.4);
+  }
+  button:active{
+    transform: translateY(-1px) scale(0.98);
+  }
+  button::before{
+    content:'';
+    position:absolute;
+    top:50%;left:50%;
+    width:0;height:0;
+    border-radius:50%;
+    background:rgba(255,255,255,0.4);
+    transform:translate(-50%,-50%);
+    transition:width 0.8s cubic-bezier(0.4, 0, 0.2, 1), height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  button:hover::before{
+    width:400px;
+    height:400px;
+  }
+  button::after{
+    content:'';
+    position:absolute;
+    top:0;left:-100%;
+    width:100%;height:100%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition:left 0.5s ease;
+  }
+  button:hover::after{
+    left:100%;
+  }
+  .muted{
+    font-size:12px;color:var(--muted);margin-top:10px;
+    transition: color 0.3s ease;
+    animation:slideIn 0.5s ease backwards 0.4s;
+  }
+
+  /* Ultra-refined Eye movement with smooth bezier curves */
+  .look-down .eye-left .pupil  { 
+    transform: translateY(2px);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .look-down .eye-right .pupil { 
+    transform: translateY(2px);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .look-left .eye-left .pupil   { 
+    transform: translateX(-2.5px);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .look-left .eye-right .pupil  { 
+    transform: translateX(2.5px);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  /* Enhanced chin movement with bounce */
+  .look-down .chin{
+    transform:translateY(2px);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .look-left .chin{
+    transform:translateY(-1px) rotate(2deg);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  /* Smooth transitions for all eye elements */
+  .eye-left, .eye-right{
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .pupil{
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease !important;
+  }
+  
+  /* Enhanced hand cover with spring animation */
+  .cover-eyes .hand-left {
+    transform: translate(-28px,-48px) rotate(-18deg);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .cover-eyes .hand-right{
+    transform: translate(28px,-48px) rotate(18deg);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .cover-eyes .arm-left {
+    transform: translate(-6px,-10px) rotate(-8deg);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .cover-eyes .arm-right{
+    transform: translate(6px,-10px) rotate(8deg);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .hand-left, .hand-right{
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: center;
+  }
+  .arm-left, .arm-right{
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Enhanced blink with natural easing */
+  .pupil{
+    transform-origin:center;
+    animation: blink 5s ease-in-out infinite;
+  }
+  @keyframes blink{
+    0%,36%,40%,100%{transform:scaleY(1)}
+    2%,38%{transform:scaleY(.04)}
+    4%{transform:scaleY(1)}
+  }
+  
+  /* Happy state with smooth crescents */
+  .happy .eye-left ellipse, .happy .eye-right ellipse{
+    transform: scaleY(0.3) translateY(3px);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .happy .pupil{
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .happy .smile{
+    d: path("M-14,10 Q0,24 14,10");
+    transition: d 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .happy .chin{
+    transform:translateY(1px) scale(1.05);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  /* Toggle password with refined animation */
+  .toggle-password{
+    position:absolute;
+    right:14px;
+    top:36px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:4px;
+    color:var(--muted);
+    font-size:18px;
+    width:auto;
+    margin:0;
+    z-index:10;
+    transition:all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .toggle-password:hover{
+    color:var(--accent);
+    transform:scale(1.2) rotate(5deg);
+    filter:drop-shadow(0 2px 4px rgba(79,172,254,0.3));
+  }
+  .toggle-password:active{
+    transform:scale(0.95);
+  }
+
+  /* Refined shake with spring physics */
+  @keyframes shake{
+    0%,100%{transform:translateX(0) rotate(0deg)}
+    10%{transform:translateX(-10px) rotate(-1deg)}
+    20%{transform:translateX(10px) rotate(1deg)}
+    30%{transform:translateX(-10px) rotate(-1deg)}
+    40%{transform:translateX(10px) rotate(1deg)}
+    50%{transform:translateX(-5px) rotate(-0.5deg)}
+    60%{transform:translateX(5px) rotate(0.5deg)}
+    70%{transform:translateX(-5px) rotate(-0.5deg)}
+    80%{transform:translateX(5px) rotate(0.5deg)}
+    90%{transform:translateX(0) rotate(0deg)}
+  }
+  .shake{
+    animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+
+  /* Enhanced checkmark with bounce */
+  @keyframes checkmark{
+    0%{transform:scale(0) rotate(-180deg);opacity:0}
+    50%{transform:scale(1.3) rotate(10deg);opacity:1}
+    70%{transform:scale(0.9) rotate(-5deg);opacity:1}
+    85%{transform:scale(1.1) rotate(2deg);opacity:1}
+    100%{transform:scale(1) rotate(0deg);opacity:1}
+  }
+  .checkmark{
+    animation: checkmark 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  /* Breathing animation for hero on idle */
+  @keyframes breathe{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.02)}
+  }
+  .breathing{
+    animation: breathe 4s ease-in-out infinite;
+  }
+  
+  /* Sparkle effect on success */
+  @keyframes sparkle{
+    0%,100%{opacity:0;transform:scale(0) rotate(0deg)}
+    50%{opacity:1;transform:scale(1) rotate(180deg)}
+  }
+  .sparkle{
+    position:absolute;
+    width:6px;height:6px;
+    background:white;
+    border-radius:50%;
+    pointer-events:none;
+    animation:sparkle 1s ease-in-out;
+  }
+  
+  /* Success celebration animation */
+  @keyframes celebrate{
+    0%{transform:translateY(0) scale(1) rotate(0deg)}
+    25%{transform:translateY(-20px) scale(1.1) rotate(-5deg)}
+    50%{transform:translateY(0) scale(1) rotate(5deg)}
+    75%{transform:translateY(-10px) scale(1.05) rotate(-2deg)}
+    100%{transform:translateY(0) scale(1) rotate(0deg)}
+  }
+  .celebrate{
+    animation:celebrate 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div id="boy" class="hero">
+    <svg viewBox="0 0 200 200" width="100%" height="100%">
+      <!-- body with gradient -->
+      <defs>
+        <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+        </linearGradient>
+        <radialGradient id="faceGrad" cx="50%" cy="40%">
+          <stop offset="0%" style="stop-color:#ffe4c4;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#ffd9b3;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <!-- body -->
+      <g transform="translate(100,110)">
+        <ellipse cx="0" cy="50" rx="38" ry="24" fill="url(#bodyGrad)" opacity=".95"/>
+      </g>
+      <!-- head -->
+      <g transform="translate(100,70)">
+        <circle cx="0" cy="0" r="36" fill="url(#faceGrad)" stroke="#f0c7a5" stroke-width="1.5"/>
+        <path d="M-36,-14 C-24,-44 24,-44 36,-14 Z" fill="#2d3748"/>
+        <g class="chin" transform="translate(0,12)">
+          <ellipse cx="0" cy="0" rx="18" ry="8" fill="#f6caa2" opacity=".7"/>
+        </g>
+        <!-- eyes with refined whites and pupils -->
+        <g transform="translate(0,-4)">
+          <g class="eye-left" transform="translate(-14,0)">
+            <ellipse rx="10" ry="6" fill="#fff" opacity="0.95"/>
+            <ellipse rx="9" ry="5.5" fill="#ffffff"/>
+            <circle class="pupil" r="2.2" fill="#1a1a1a"/>
+            <circle r="0.8" fill="#fff" opacity="0.9" cx="-0.5" cy="-0.5"/>
+          </g>
+          <g class="eye-right" transform="translate(14,0)">
+            <ellipse rx="10" ry="6" fill="#fff" opacity="0.95"/>
+            <ellipse rx="9" ry="5.5" fill="#ffffff"/>
+            <circle class="pupil" r="2.2" fill="#1a1a1a"/>
+            <circle r="0.8" fill="#fff" opacity="0.9" cx="-0.5" cy="-0.5"/>
+          </g>
+        </g>
+        <!-- smile with gradient -->
+        <path class="smile" d="M-12,12 Q0,20 12,12" stroke="#d97706" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.9"/>
+        <!-- eyebrows -->
+        <path d="M-20,-8 Q-14,-10 -8,-8" stroke="#2d3748" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+        <path d="M20,-8 Q14,-10 8,-8" stroke="#2d3748" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+        <!-- arms/hands with gradients -->
+        <g class="arm-left" transform="translate(-36,26)">
+          <path d="M0,0 C-10,6 -18,18 -18,30" stroke="url(#faceGrad)" stroke-width="9" stroke-linecap="round" fill="none"/>
+          <g class="hand-left" transform="translate(-22,30)">
+            <circle r="8" fill="url(#faceGrad)"/>
+            <circle r="6.5" fill="#ffd9b3" opacity="0.8"/>
+          </g>
+        </g>
+        <g class="arm-right" transform="translate(36,26)">
+          <path d="M0,0 C10,6 18,18 18,30" stroke="url(#faceGrad)" stroke-width="9" stroke-linecap="round" fill="none"/>
+          <g class="hand-right" transform="translate(22,30)">
+            <circle r="8" fill="url(#faceGrad)"/>
+            <circle r="6.5" fill="#ffd9b3" opacity="0.8"/>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <h1>Welcome back</h1>
+  <p class="lead">Sign in to continue</p>
+  <form id="loginForm">
+    <div class="field">
+      <label for="username">Username</label>
+      <input id="username" type="text" required minlength="3" autocomplete="username"/>
+      <span class="field-icon" id="usernameIcon"></span>
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input id="password" type="password" required minlength="6" autocomplete="current-password"/>
+      <button type="button" class="toggle-password" id="togglePassword">👁️</button>
+      <span class="field-icon" id="passwordIcon"></span>
+    </div>
+    <button type="submit">Sign in</button>
+    <div class="muted">Focus password → hands cover eyes 👀 | Try typing!</div>
+  </form>
+</div>
+
+<script>
+const boy = document.getElementById('boy');
+const username = document.getElementById('username');
+const password = document.getElementById('password');
+const togglePassword = document.getElementById('togglePassword');
+const usernameIcon = document.getElementById('usernameIcon');
+const passwordIcon = document.getElementById('passwordIcon');
+const card = document.querySelector('.card');
+let idleTimer = null;
+
+// Add breathing animation when idle
+function startBreathing(){
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(() => {
+    if(!document.activeElement || (document.activeElement !== username && document.activeElement !== password)){
+      boy.classList.add('breathing');
+    }
+  }, 3000);
+}
+
+function stopBreathing(){
+  boy.classList.remove('breathing');
+  clearTimeout(idleTimer);
+}
+
+// Username input → look DOWN with ultra-smooth animation
+username.addEventListener('focus', () => {
+  stopBreathing();
+  boy.classList.add('look-down');
+  boy.classList.remove('cover-eyes', 'look-left', 'happy');
+  document.querySelector('h1').style.color = 'var(--accent)';
+});
+
+username.addEventListener('blur', () => {
+  boy.classList.remove('look-down');
+  document.querySelector('h1').style.color = '#111';
+  validateUsername();
+  startBreathing();
+});
+
+// Enhanced real-time validation with smooth animations
+username.addEventListener('input', () => {
+  if(username.value.length >= 3){
+    username.classList.add('valid');
+    username.classList.remove('invalid');
+    usernameIcon.textContent = '✓';
+    usernameIcon.style.color = 'var(--success)';
+    usernameIcon.classList.add('show', 'checkmark');
+    
+    // Subtle happy reaction
+    boy.style.transform = 'scale(1.02)';
+    setTimeout(() => boy.style.transform = '', 200);
+  } else if(username.value.length > 0){
+    username.classList.add('invalid');
+    username.classList.remove('valid');
+    usernameIcon.textContent = '✗';
+    usernameIcon.style.color = 'var(--error)';
+    usernameIcon.classList.add('show');
+    usernameIcon.classList.remove('checkmark');
+  } else {
+    username.classList.remove('valid', 'invalid');
+    usernameIcon.classList.remove('show');
+  }
+});
+
+function validateUsername(){
+  if(username.value.length > 0 && username.value.length < 3){
+    card.classList.add('shake');
+    setTimeout(() => card.classList.remove('shake'), 600);
+  }
+}
+
+// Password input → cover eyes with spring animation
+password.addEventListener('focus', () => {
+  stopBreathing();
+  boy.classList.add('cover-eyes');
+  boy.classList.remove('look-down', 'look-left', 'happy');
+  document.querySelector('.lead').style.color = 'var(--accent)';
+});
+
+password.addEventListener('blur', () => {
+  boy.classList.remove('cover-eyes');
+  document.querySelector('.lead').style.color = 'var(--muted)';
+  validatePassword();
+  startBreathing();
+});
+
+// Enhanced password validation
+password.addEventListener('input', () => {
+  if(password.value.length >= 6){
+    password.classList.add('valid');
+    password.classList.remove('invalid');
+    passwordIcon.textContent = '✓';
+    passwordIcon.style.color = 'var(--success)';
+    passwordIcon.classList.add('show', 'checkmark');
+  } else if(password.value.length > 0){
+    password.classList.add('invalid');
+    password.classList.remove('valid');
+    passwordIcon.textContent = '✗';
+    passwordIcon.style.color = 'var(--error)';
+    passwordIcon.classList.add('show');
+    passwordIcon.classList.remove('checkmark');
+  } else {
+    password.classList.remove('valid', 'invalid');
+    passwordIcon.classList.remove('show');
+  }
+});
+
+function validatePassword(){
+  if(password.value.length > 0 && password.value.length < 6){
+    card.classList.add('shake');
+    setTimeout(() => card.classList.remove('shake'), 600);
+  }
+}
+
+// Toggle password with refined animation
+let passwordVisible = false;
+togglePassword.addEventListener('click', (e) => {
+  e.preventDefault();
+  passwordVisible = !passwordVisible;
+  password.type = passwordVisible ? 'text' : 'password';
+  togglePassword.textContent = passwordVisible ? '🙈' : '👁️';
+  
+  // Character looks away when password is visible
+  if(passwordVisible && document.activeElement === password){
+    boy.classList.remove('cover-eyes');
+    boy.classList.add('look-left');
+  } else if(document.activeElement === password){
+    boy.classList.add('cover-eyes');
+    boy.classList.remove('look-left');
+  }
+});
+
+// Create sparkle effect
+function createSparkle(x, y){
+  const sparkle = document.createElement('div');
+  sparkle.className = 'sparkle';
+  sparkle.style.left = x + 'px';
+  sparkle.style.top = y + 'px';
+  document.body.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 1000);
+}
+
+// Enhanced form submission with celebration
+document.getElementById('loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  
+  if(username.value.length >= 3 && password.value.length >= 6){
+    // Success animations
+    boy.classList.remove('cover-eyes', 'look-down', 'look-left');
+    boy.classList.add('happy');
+    card.classList.add('celebrate');
+    
+    // Create sparkles
+    for(let i = 0; i < 12; i++){
+      setTimeout(() => {
+        const angle = (i / 12) * Math.PI * 2;
+        const x = window.innerWidth / 2 + Math.cos(angle) * 100;
+        const y = window.innerHeight / 2 + Math.sin(angle) * 100;
+        createSparkle(x, y);
+      }, i * 80);
+    }
+    
+    // Change background with smooth transition
+    document.body.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+    
+    setTimeout(() => {
+      alert('🎉 Login successful! (Demo only — form not submitted)');
+      // Reset everything
+      boy.classList.remove('happy');
+      card.classList.remove('celebrate');
+      document.body.style.background = 'linear-gradient(135deg,var(--accent) 0%, var(--accent-2) 100%)';
+      startBreathing();
+    }, 1200);
+  } else {
+    // Enhanced error feedback
+    card.classList.add('shake');
+    boy.classList.remove('cover-eyes', 'look-down', 'look-left');
+    
+    // Sad expression momentarily
+    const eyes = document.querySelectorAll('.eye-left ellipse, .eye-right ellipse');
+    eyes.forEach(eye => {
+      eye.style.transform = 'scaleY(0.5) translateY(2px)';
+    });
+    
+    setTimeout(() => {
+      card.classList.remove('shake');
+      eyes.forEach(eye => eye.style.transform = '');
+    }, 600);
+    
+    alert('Please fill in all fields correctly');
+  }
+});
+
+// Easter egg: Double-click for happiness + triple-click for wink
+let clickCount = 0;
+let clickTimer = null;
+boy.addEventListener('click', () => {
+  clickCount++;
+  clearTimeout(clickTimer);
+  
+  if(clickCount === 2){
+    boy.classList.add('happy');
+    setTimeout(() => boy.classList.remove('happy'), 2000);
+  } else if(clickCount === 3){
+    // Wink animation
+    const leftEye = document.querySelector('.eye-left ellipse');
+    leftEye.style.transform = 'scaleY(0.1)';
+    setTimeout(() => leftEye.style.transform = '', 300);
+    clickCount = 0;
+  }
+  
+  clickTimer = setTimeout(() => clickCount = 0, 500);
+});
+
+// Mouse movement tracking for eye follow (subtle)
+let mouseX = 0;
+let mouseY = 0;
+let isInputFocused = false;
+
+document.addEventListener('mousemove', (e) => {
+  if(isInputFocused) return;
+  
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  
+  const boyRect = boy.getBoundingClientRect();
+  const boyCenterX = boyRect.left + boyRect.width / 2;
+  const boyCenterY = boyRect.top + boyRect.height / 2;
+  
+  const deltaX = mouseX - boyCenterX;
+  const deltaY = mouseY - boyCenterY;
+  
+  const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+  
+  // Only track if mouse is reasonably close
+  if(distance < 300){
+    const angle = Math.atan2(deltaY, deltaX);
+    const moveX = Math.cos(angle) * Math.min(distance / 150, 1.5);
+    const moveY = Math.sin(angle) * Math.min(distance / 150, 1);
+    
+    const pupils = document.querySelectorAll('.pupil');
+    pupils.forEach(pupil => {
+      pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+  }
+});
+
+username.addEventListener('focus', () => isInputFocused = true);
+username.addEventListener('blur', () => isInputFocused = false);
+password.addEventListener('focus', () => isInputFocused = true);
+password.addEventListener('blur', () => isInputFocused = false);
+
+// Keyboard sound feedback (visual pulse)
+username.addEventListener('keydown', () => {
+  boy.style.transform = 'scale(1.01)';
+  setTimeout(() => boy.style.transform = '', 100);
+});
+
+password.addEventListener('keydown', () => {
+  const hands = document.querySelectorAll('.hand-left, .hand-right');
+  hands.forEach(hand => {
+    hand.style.transform = 'scale(1.1)';
+    setTimeout(() => hand.style.transform = '', 100);
+  });
+});
+
+// Initialize breathing animation
+startBreathing();
+
+// Add entrance animation
+window.addEventListener('load', () => {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(30px)';
+  setTimeout(() => {
+    card.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    card.style.opacity = '1';
+    card.style.transform = 'translateY(0)';
+  }, 100);
+  
+  boy.style.opacity = '0';
+  boy.style.transform = 'translateX(-50%) translateY(-30px)';
+  setTimeout(() => {
+    boy.style.transition = 'all 1s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    boy.style.opacity = '1';
+    boy.style.transform = 'translateX(-50%) translateY(0)';
+  }, 300);
+});
+
+// Add subtle parallax effect on mouse move
+document.addEventListener('mousemove', (e) => {
+  const moveX = (e.clientX - window.innerWidth / 2) / 50;
+  const moveY = (e.clientY - window.innerHeight / 2) / 50;
+  
+  card.style.transform = `perspective(1000px) rotateY(${moveX * 0.5}deg) rotateX(${-moveY * 0.5}deg) translateY(${card.classList.contains('hover') ? '-8px' : '0'})`;
+});
+
+card.addEventListener('mouseenter', () => card.classList.add('hover'));
+card.addEventListener('mouseleave', () => {
+  card.classList.remove('hover');
+  card.style.transform = '';
+});
+
+// Smooth scroll to input on mobile
+username.addEventListener('focus', () => {
+  setTimeout(() => {
+    username.scrollIntoView({behavior: 'smooth', block: 'center'});
+  }, 300);
+});
+
+password.addEventListener('focus', () => {
+  setTimeout(() => {
+    password.scrollIntoView({behavior: 'smooth', block: 'center'});
+  }, 300);
+});
+
+// Add heartbeat animation on hover over button
+const submitBtn = document.querySelector('button[type="submit"]');
+submitBtn.addEventListener('mouseenter', () => {
+  boy.classList.add('happy');
+  setTimeout(() => boy.classList.remove('happy'), 600);
+});
+
+// Prevent animation interruption
+let animationLock = false;
+function lockAnimation(duration){
+  animationLock = true;
+  setTimeout(() => animationLock = false, duration);
+}
+
+// Enhanced focus states
+username.addEventListener('focus', () => {
+  if(animationLock) return;
+  lockAnimation(500);
+});
+
+password.addEventListener('focus', () => {
+  if(animationLock) return;
+  lockAnimation(600);
+});
+</script>
+</body>
+</html>
+
+
