@@ -18,6 +18,20 @@
     <title>js ecom website</title>
   </head>
   <body>
+    <!-- Feature 7: Scroll Progress Bar -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Feature 6: Global Loading Spinner Overlay (ARIA-friendly) -->
+    <div
+      class="loading-overlay"
+      id="loadingOverlay"
+      role="status"
+      aria-busy="true"
+      aria-live="polite"
+    >
+      <div class="spinner" aria-hidden="true"></div>
+      <span class="visually-hidden">Loading…</span>
+    </div>
     <header class="section-navbar">
       <section class="top_txt">
         <div class="head container">
@@ -25,8 +39,9 @@
             <p>Free shipping, 30-day return or refund guarantee.</p>
           </div>
           <div class="sin_in_up">
-            <a href="login.html">SIGN IN</a>
-            <a href="login.html">SIGN UP</a>
+            <!-- Feature 15: Tooltip fade-in/out on hover -->
+            <a href="login.html" data-tooltip="Sign in to your account">SIGN IN</a>
+            <a href="login.html" data-tooltip="Create an account">SIGN UP</a>
           </div>
         </div>
       </section>
@@ -43,7 +58,18 @@
           </a>
         </div>
 
-        <nav class="navbar">
+        <!-- Feature 17: Hamburger menu toggle (mobile) -->
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Open menu"
+          aria-controls="primaryNav"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="navbar" id="primaryNav">
           <ul>
             <li class="nav-item">
               <a href="/" class="nav-link">Home</a>
@@ -53,6 +79,24 @@
             </li>
             <li class="nav-item">
               <a href="products.html" class="nav-link">products</a>
+            </li>
+            <!-- Feature 8: Smooth dropdown transitions -->
+            <li class="nav-item dropdown">
+              <button
+                class="nav-link dropdown-toggle"
+                id="shopDropdown"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-controls="shopMenu"
+                type="button"
+              >
+                shop
+              </button>
+              <div class="dropdown-menu" id="shopMenu" role="menu" aria-labelledby="shopDropdown">
+                <a href="products.html" role="menuitem">All products</a>
+                <a href="#" role="menuitem">New arrivals</a>
+                <a href="#" role="menuitem">Best sellers</a>
+              </div>
             </li>
             <li class="nav-item">
               <a href="contact.html" class="nav-link">contact</a>
@@ -74,11 +118,22 @@
     <!-- ========== Start Home Hero Section ========== -->
     <main>
       <section class="section-hero">
+        <!-- Feature 11: Parallax background layer -->
+        <div
+          class="parallax-bg"
+          style="background-image: url('/images/heroImage.png')"
+          aria-hidden="true"
+        ></div>
         <div class="container grid grid-two--cols">
-          <div class="section-hero--content">
+          <!-- Feature 1: Fade-in hero section -->
+          <div class="section-hero--content fade-in">
             <p class="hero-subheading">Explore the Latest in Tech Industries</p>
+            <!-- Feature 10: Text typing animation for heading -->
             <h1 class="hero-heading">
-              Your Destination for Cutting-Edge Gadgets!
+              <span id="typedHeading" aria-live="polite">
+                Your Destination for Cutting-Edge Gadgets!
+              </span>
+              <span class="caret" aria-hidden="true"></span>
             </h1>
             <p class="hero-para">
               Welcome to Thapa eComStore, your ultimate destination for
@@ -86,7 +141,11 @@
               style with us. Shop now and discover a world of possibilities!
             </p>
             <div class="hero-btn">
-              <a href="products.html" class="btn">Explore Our Products</a>
+              <a href="products.html" class="btn" data-tooltip="Browse our products">Explore Our Products</a>
+              <!-- Feature 16: Modal open button -->
+              <button class="btn" id="openModalButton" type="button">Learn More</button>
+              <!-- Feature 19: Demo toast trigger (optional) -->
+              <button class="btn" id="demoToastButton" type="button">Show Notification</button>
             </div>
           </div>
           <div
@@ -129,10 +188,28 @@
     </main>
     <!-- ========== End Home Hero Section ========== -->
 
+    <!-- Feature 2 & 9: Image Carousel with sliding transitions -->
+    <section class="container" aria-label="Featured products carousel">
+      <!-- Feature 2 & 9: Sliding banners/carousel -->
+      <div class="carousel" id="homeCarousel">
+        <div class="carousel-track" id="homeCarouselTrack">
+          <div class="carousel-slide"><img src="/images/lapi.png" alt="Featured laptop" /></div>
+          <div class="carousel-slide"><img src="/images/iphone.png" alt="Featured phone" /></div>
+          <div class="carousel-slide"><img src="/images/watch.png" alt="Featured smartwatch" /></div>
+        </div>
+        <div class="carousel-controls">
+          <button type="button" id="carouselPrev" aria-label="Previous slide">‹</button>
+          <button type="button" id="carouselNext" aria-label="Next slide">›</button>
+        </div>
+        <div class="carousel-nav" id="carouselDots" aria-hidden="true"></div>
+      </div>
+    </section>
+
     <!-- ========== Start Extra Product Section ========== -->
     <section class="section-extra-product">
       <div class="container grid grid-three--cols">
-        <div class="div-extra grid grid-two--cols">
+        <!-- Feature 4: Scroll-triggered element animations -->
+        <div class="div-extra grid grid-two--cols reveal-on-scroll">
           <div class="extra-text">
             <p>new year sale</p>
             <h3>get and extra 50% off</h3>
@@ -143,7 +220,7 @@
           </div>
         </div>
 
-        <div class="div-extra grid grid-two--cols">
+        <div class="div-extra grid grid-two--cols reveal-on-scroll">
           <div class="extra-text">
             <p>new year sale</p>
             <h3>40% discount on speakers</h3>
@@ -154,7 +231,7 @@
           </div>
         </div>
 
-        <div class="div-extra grid grid-two--cols">
+        <div class="div-extra grid grid-two--cols reveal-on-scroll">
           <div class="extra-text">
             <p>new year sale</p>
             <h3>get and extra 50% off</h3>
@@ -171,7 +248,8 @@
     <!-- ========== Start policy ========== -->
     <section class="section-policy">
       <div class="container grid grid-four--cols">
-        <div class="div-policy">
+        <!-- Feature 4: Scroll-triggered animations on policy cards -->
+        <div class="div-policy reveal-on-scroll">
           <div class="icons">
             <i class="fa-solid fa-truck-fast"></i>
           </div>
@@ -181,7 +259,7 @@
           </div>
         </div>
 
-        <div class="div-policy">
+        <div class="div-policy reveal-on-scroll">
           <div class="icons">
             <i class="fa-solid fa-rotate"></i>
           </div>
@@ -191,7 +269,7 @@
           </div>
         </div>
 
-        <div class="div-policy">
+        <div class="div-policy reveal-on-scroll">
           <div class="icons">
             <i class="fa-solid fa-hand-holding-dollar"></i>
           </div>
@@ -201,7 +279,7 @@
           </div>
         </div>
 
-        <div class="div-policy">
+        <div class="div-policy reveal-on-scroll">
           <div class="icons">
             <i class="fa-solid fa-headset"></i>
           </div>
@@ -277,6 +355,23 @@
 
     <!-- ========== End Our Products Section ========== -->
 
+    <!-- Feature 12: Card Flip animation sample -->
+    <section class="container" aria-label="Deal of the day">
+      <!-- Feature 12: Card flip animations -->
+      <div class="flip-card reveal-on-scroll" id="dealFlipCard" style="max-width:360px;margin:auto;">
+        <div class="flip-card-inner">
+          <article class="flip-card-front cards" aria-label="Front of deal card">
+            <h3 style="margin-bottom:8px;">Deal of the Day</h3>
+            <p>Hover or tap to reveal details</p>
+          </article>
+          <article class="flip-card-back cards" aria-label="Back of deal card">
+            <h3 style="margin-bottom:8px;">Limited Time Offer</h3>
+            <p>Extra 10% off with code: SAVE10</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- ========== Start Why Choose Us Section ========== -->
     <section class="section-why--choose">
       <div class="container">
@@ -289,7 +384,8 @@
 
       <div class="container grid grid-three--cols">
         <div class="choose-left-div text-align--right">
-          <div class="why-choose--div" data-aos="zoom-in-up" data-aos-delay="0">
+          <!-- Feature 4: Scroll-triggered animations on choose items -->
+          <div class="why-choose--div reveal-on-scroll" data-aos="zoom-in-up" data-aos-delay="0">
             <p class="common-text--highlight">1</p>
             <h3 class="section-common--title">Wide Selection</h3>
             <p>
@@ -300,7 +396,7 @@
           </div>
 
           <div
-            class="why-choose--div"
+            class="why-choose--div reveal-on-scroll"
             data-aos="zoom-in-up"
             data-aos-delay="300"
           >
@@ -314,7 +410,7 @@
           </div>
 
           <div
-            class="why-choose--div"
+            class="why-choose--div reveal-on-scroll"
             data-aos="zoom-in-up"
             data-aos-delay="600"
           >
@@ -327,14 +423,14 @@
             </p>
           </div>
         </div>
-        <div class="choose-center-div" data-aos="zoom-in" data-aos-delay="300">
+        <div class="choose-center-div reveal-on-scroll" data-aos="zoom-in" data-aos-delay="300">
           <figure>
             <img src="./images/ecompost.png" alt="thapa technical home page " />
           </figure>
         </div>
         <div class="choose-right-div">
           <div
-            class="why-choose--div text-align--left"
+            class="why-choose--div text-align--left reveal-on-scroll"
             data-aos="zoom-in-up"
             data-aos-delay="0"
           >
@@ -348,7 +444,7 @@
           </div>
 
           <div
-            class="why-choose--div text-align--left"
+            class="why-choose--div text-align--left reveal-on-scroll"
             data-aos="zoom-in-up"
             data-aos-delay="300"
           >
@@ -363,7 +459,7 @@
           </div>
 
           <div
-            class="why-choose--div text-align--left"
+            class="why-choose--div text-align--left reveal-on-scroll"
             data-aos="zoom-in-up"
             data-aos-delay="600"
           >
@@ -381,8 +477,27 @@
     </section>
     <!-- ========== End   Why Choose Us Section ========== -->
 
+    <!-- Feature 18: Tabs with animated panels -->
+    <section class="container tabs" id="infoTabs" aria-label="Information tabs">
+      <!-- Feature 18: Tab switching animation -->
+      <div class="tablist" role="tablist" aria-label="Information tabs">
+        <button role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1">Shipping</button>
+        <button role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2">Warranty</button>
+        <button role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3">Support</button>
+      </div>
+      <div id="panel-1" class="tab-panel active" role="tabpanel" aria-labelledby="tab-1">
+        <p>Fast worldwide shipping on orders above $100.</p>
+      </div>
+      <div id="panel-2" class="tab-panel" role="tabpanel" aria-labelledby="tab-2" hidden>
+        <p>All gadgets include a 1-year limited warranty.</p>
+      </div>
+      <div id="panel-3" class="tab-panel" role="tabpanel" aria-labelledby="tab-3" hidden>
+        <p>24/7 chat and email support available.</p>
+      </div>
+    </section>
+
     <!-- ========== Start footer Section ========== -->
-    <footer class="section-footer">
+    <footer class="section-footer reveal">
       <div class="footer-container container">
         <div class="content_1">
           <!--<img src="" alt="logo" />-->
@@ -424,6 +539,22 @@
     </footer>
 
     <!-- ========== End footer Section ========== -->
+    
+    <!-- Feature 16: Modal open/close animation -->
+    <div id="app-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+      <div class="modal-content">
+        <header style="display:flex;align-items:center;justify-content:space-between;padding:16px 16px 0;">
+          <h3 id="modalTitle" style="margin:0;">About Thapa eComStore</h3>
+          <button id="closeModalButton" aria-label="Close modal" class="btn" style="padding:6px 10px;">Close</button>
+        </header>
+        <div style="padding:16px;">
+          <p id="modalDesc">Discover the latest gadgets and exclusive deals curated for you.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 14: Back-to-top button with smooth scroll -->
+    <button id="backToTop" aria-label="Back to top">▲</button>
     <script type="module" src="./src/main.js"></script>
   </body>
 </html>
