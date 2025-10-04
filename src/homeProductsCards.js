@@ -1,5 +1,6 @@
 import { addToCart } from "./addToCart";
 import { homeQuantityToggle } from "./homeQuantityToggle";
+import { initProductCardInteractions } from "./animations";
 
 const productContainer = document.querySelector("#productContainer");
 const productTemplate = document.querySelector("#productTemplate");
@@ -41,5 +42,7 @@ export const showProductContainer = (products) => {
       });
 
     productContainer.append(productClone);
+    // Bind interactions for newly added card
+    initProductCardInteractions(productContainer);
   });
 };

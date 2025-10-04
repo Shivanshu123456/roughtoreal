@@ -1,6 +1,7 @@
 import { getCartProductFromLS } from "./getCartProductFromLS";
 import { showToast } from "./showToast";
 import { updateCartValue } from "./updateCartValue";
+import { animateAddToCartFeedback } from "./animations";
 
 // -----------------------------------------------------
 // to get the cart data from localStorage
@@ -37,10 +38,9 @@ let price = Number(priceText.replace(/[₹,]/g, "").trim());
     console.log(updatedCart);
 
     localStorage.setItem("cartProductLS", JSON.stringify(updatedCart));
-    //show toast when product added to the cart
-    
-    
+    // visual feedback
     showToast("add", id);
+    animateAddToCartFeedback(event?.currentTarget || event?.target);
   }
 
   if (existingProd) {
@@ -61,4 +61,5 @@ let price = Number(priceText.replace(/[₹,]/g, "").trim());
 
   //show toast when product added to the cart
   showToast("add", id);
+  animateAddToCartFeedback(event?.currentTarget || event?.target);
 };
