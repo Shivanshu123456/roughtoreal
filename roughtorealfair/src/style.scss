@@ -179,7 +179,8 @@ textarea:focus-visible {
   font-family: "urbanist";
   animation: toastAnimation 2s linear;
   -webkit-animation: toastAnimation 2s linear;
-  box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+  box-shadow:
+    inset 0px 0px 0.5em 0px var(--glow-color),
     0px 0px 0.5em 0px var(--glow-color);
 }
 
@@ -228,7 +229,8 @@ textarea:focus-visible {
 
 .section-navbar {
   width: 100%;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+  box-shadow:
+    rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
@@ -870,7 +872,8 @@ footer {
   /* margin-top: 1.2rem; */
 
   &:hover {
-    box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.16),
+    box-shadow:
+      inset 0px 1px 4px rgba(0, 0, 0, 0.16),
       inset 0px 0px 0px 3px rgb(51, 51, 51);
     background-color: var(--backgroundColor);
     color: var(--buttonColor);
@@ -964,7 +967,9 @@ footer {
   background-color: var(--backgroundSecondary);
   height: auto;
   width: 32rem;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+  box-shadow:
+    rgba(0, 0, 0, 0.16) 0px 1px 4px,
+    rgb(51, 51, 51) 0px 0px 0px 3px;
 }
 
 .productOrderTotal {

@@ -15,13 +15,14 @@ export const addToCart = (event, id, stock) => {
   let arrLocalStorageProduct = getCartProductFromLS();
 
   const currentProdElem = document.querySelector(`#card${id}`);
-  let quantity = Number(currentProdElem.querySelector(".productQuantity").innerText);
+  let quantity = Number(
+    currentProdElem.querySelector(".productQuantity").innerText,
+  );
   let priceText = currentProdElem.querySelector(".productPrice").innerText;
-let price = Number(priceText.replace(/[₹,]/g, "").trim());
-
+  let price = Number(priceText.replace(/[₹,]/g, "").trim());
 
   let existingProd = arrLocalStorageProduct.find(
-    (curProd) => curProd.id === id
+    (curProd) => curProd.id === id,
   );
 
   console.log(existingProd);
@@ -38,8 +39,7 @@ let price = Number(priceText.replace(/[₹,]/g, "").trim());
 
     localStorage.setItem("cartProductLS", JSON.stringify(updatedCart));
     //show toast when product added to the cart
-    
-    
+
     showToast("add", id);
   }
 
@@ -52,7 +52,7 @@ let price = Number(priceText.replace(/[₹,]/g, "").trim());
 
   price = Number(price * quantity);
   quantity = Number(quantity);
-  
+
   arrLocalStorageProduct.push({ id, quantity, price });
   localStorage.setItem("cartProductLS", JSON.stringify(arrLocalStorageProduct));
 
