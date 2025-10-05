@@ -24,6 +24,8 @@
   --main-color: #535bf2;
   --supporting-color: #ebf3fe;
   --glow-color: hsl(186, 91%, 4%);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.3);
 }
 
 html {
@@ -232,6 +234,12 @@ textarea:focus-visible {
   box-shadow:
     rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  position: sticky;
+  top: 0;
+  backdrop-filter: saturate(160%) blur(12px);
+  background: var(--glass-bg);
+  border-bottom: 1px solid var(--glass-border);
+  transition: transform 200ms ease;
 }
 
 .section-navbar .container {
@@ -239,6 +247,10 @@ textarea:focus-visible {
   justify-content: space-between;
   align-items: center;
   padding: 1.8rem; /* we override the main container padding property  */
+}
+
+.section-navbar.nav-hidden {
+  transform: translateY(-100%);
 }
 
 .section-navbar img {
@@ -296,6 +308,12 @@ main {
     #ebf3fe
   );
 }
+
+/* Page transitions */
+html.page-fade-in body { opacity: 0; animation: pageEnter 300ms ease forwards; }
+html.page-exit body { opacity: 1; animation: pageExit 250ms ease forwards; }
+@keyframes pageEnter { to { opacity: 1; } }
+@keyframes pageExit { to { opacity: 0; } }
 
 .custom-shape-divider-bottom-1696038172 {
   position: absolute;
@@ -767,6 +785,12 @@ footer {
   -ms-border-radius: 0.3rem;
   -o-border-radius: 0.3rem;
   -webkit-border-radius: 0.3rem;
+  transition: box-shadow 200ms ease, transform 200ms ease;
+  will-change: transform;
+}
+
+.cards:hover {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
 .category {
@@ -786,6 +810,19 @@ footer {
   width: 32rem;
   height: auto;
 }
+
+/* Skeletons */
+.skeleton { position: relative; background: #e5e7eb; overflow: hidden; }
+.skeleton::after {
+  content: "";
+  position: absolute; inset: 0; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: shimmer 1.2s infinite;
+}
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) { .skeleton::after { animation: none; } }
+
+.skeleton-card { border-radius: 0.3rem; padding: 1.6rem; }
 
 .productPriceElement,
 .productQuantityElement,
@@ -856,6 +893,8 @@ footer {
   background-color: var(--buttonColor);
   color: #fff;
   padding: 1rem 2rem;
+  border-radius: 999px;
+  will-change: transform;
 }
 
 .add-to-cart-button,
@@ -884,6 +923,12 @@ footer {
     padding-right: 1rem;
   }
 }
+
+/* Zoom wrappers */
+.imageContainer { overflow: hidden; border-radius: 0.4rem; }
+
+/* Magnetic cursor targets hint */
+.btn, .add-to-cart-button { transform: translateZ(0); will-change: transform; }
 
 /*****  Add to Cart page starts *****/
 

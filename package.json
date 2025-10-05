@@ -12,5 +12,8 @@
     "prettier": "^3.6.2",
     "sass": "^1.92.1",
     "vite": "^7.1.2"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0"
   }
 }

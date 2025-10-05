@@ -1,6 +1,7 @@
 import { getCartProductFromLS } from "./getCartProductFromLS";
 import { showToast } from "./showToast";
 import { updateCartValue } from "./updateCartValue";
+import { animateAddToCartFeedback } from "./animations";
 
 // -----------------------------------------------------
 // to get the cart data from localStorage
@@ -38,9 +39,14 @@ export const addToCart = (event, id, stock) => {
     console.log(updatedCart);
 
     localStorage.setItem("cartProductLS", JSON.stringify(updatedCart));
+<<<<<<< HEAD
     //show toast when product added to the cart
 
+=======
+    // visual feedback
+>>>>>>> main
     showToast("add", id);
+    animateAddToCartFeedback(event?.currentTarget || event?.target);
   }
 
   if (existingProd) {
@@ -61,4 +67,9 @@ export const addToCart = (event, id, stock) => {
 
   //show toast when product added to the cart
   showToast("add", id);
+<<<<<<< HEAD
 };
+=======
+  animateAddToCartFeedback(event?.currentTarget || event?.target);
+};
+>>>>>>> main
