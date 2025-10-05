@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- This section was updated by Cursor Agent for testing -->
@@ -13,7 +13,6 @@
     />
     <!--? ## Step 1: Don't Forget To LIKE SHARE & SUBSCRIBE TO THAPA TECHNCIAL YOUTUBE CHANNEL 👉 https://www.youtube.com/thapatechnical -->
 
-    
     <link rel="stylesheet" href="./src/style.css" />
     <title>js ecom website</title>
   </head>
@@ -40,7 +39,9 @@
           </div>
           <div class="sin_in_up">
             <!-- Feature 15: Tooltip fade-in/out on hover -->
-            <a href="login.html" data-tooltip="Sign in to your account">SIGN IN</a>
+            <a href="login.html" data-tooltip="Sign in to your account"
+              >SIGN IN</a
+            >
             <a href="login.html" data-tooltip="Create an account">SIGN UP</a>
           </div>
         </div>
@@ -92,7 +93,12 @@
               >
                 shop
               </button>
-              <div class="dropdown-menu" id="shopMenu" role="menu" aria-labelledby="shopDropdown">
+              <div
+                class="dropdown-menu"
+                id="shopMenu"
+                role="menu"
+                aria-labelledby="shopDropdown"
+              >
                 <a href="products.html" role="menuitem">All products</a>
                 <a href="#" role="menuitem">New arrivals</a>
                 <a href="#" role="menuitem">Best sellers</a>
@@ -107,7 +113,7 @@
                 class="nav-link add-to-cart-button"
                 id="cartValue"
               >
-                <i class="fa-solid fa-cart-shopping"> 0 </i>
+                <i class="fa-solid fa-cart-shopping cart-icon"> 0 </i>
               </a>
             </li>
           </ul>
@@ -121,7 +127,7 @@
         <!-- Feature 11: Parallax background layer -->
         <div
           class="parallax-bg"
-          style="background-image: url('/images/heroImage.png')"
+          style="background-image: url(&quot;/images/heroImage.png&quot;)"
           aria-hidden="true"
         ></div>
         <div class="container grid grid-two--cols">
@@ -141,11 +147,20 @@
               style with us. Shop now and discover a world of possibilities!
             </p>
             <div class="hero-btn">
-              <a href="products.html" class="btn" data-tooltip="Browse our products">Explore Our Products</a>
+              <a
+                href="products.html"
+                class="btn"
+                data-tooltip="Browse our products"
+                >Explore Our Products</a
+              >
               <!-- Feature 16: Modal open button -->
-              <button class="btn" id="openModalButton" type="button">Learn More</button>
+              <button class="btn" id="openModalButton" type="button">
+                Learn More
+              </button>
               <!-- Feature 19: Demo toast trigger (optional) -->
-              <button class="btn" id="demoToastButton" type="button">Show Notification</button>
+              <button class="btn" id="demoToastButton" type="button">
+                Show Notification
+              </button>
             </div>
           </div>
           <div
@@ -153,12 +168,14 @@
             data-aos="fade-up"
             data-aos-delay="600"
           >
-            <!--<figure>
+            <!--
+            <figure>
               <img
                 src="./images/heroSection.svg"
                 alt="coding languages using html css js"
-              />-->
+              />
             </figure>
+            -->
           </div>
         </div>
         <div class="custom-shape-divider-bottom-1696038172">
@@ -193,13 +210,23 @@
       <!-- Feature 2 & 9: Sliding banners/carousel -->
       <div class="carousel" id="homeCarousel">
         <div class="carousel-track" id="homeCarouselTrack">
-          <div class="carousel-slide"><img src="/images/lapi.png" alt="Featured laptop" /></div>
-          <div class="carousel-slide"><img src="/images/iphone.png" alt="Featured phone" /></div>
-          <div class="carousel-slide"><img src="/images/watch.png" alt="Featured smartwatch" /></div>
+          <div class="carousel-slide">
+            <img src="/images/lapi.png" alt="Featured laptop" />
+          </div>
+          <div class="carousel-slide">
+            <img src="/images/iphone.png" alt="Featured phone" />
+          </div>
+          <div class="carousel-slide">
+            <img src="/images/watch.png" alt="Featured smartwatch" />
+          </div>
         </div>
         <div class="carousel-controls">
-          <button type="button" id="carouselPrev" aria-label="Previous slide">‹</button>
-          <button type="button" id="carouselNext" aria-label="Next slide">›</button>
+          <button type="button" id="carouselPrev" aria-label="Previous slide">
+            ‹
+          </button>
+          <button type="button" id="carouselNext" aria-label="Next slide">
+            ›
+          </button>
         </div>
         <div class="carousel-nav" id="carouselDots" aria-hidden="true"></div>
       </div>
@@ -358,14 +385,21 @@
     <!-- Feature 12: Card Flip animation sample -->
     <section class="container" aria-label="Deal of the day">
       <!-- Feature 12: Card flip animations -->
-      <div class="flip-card reveal-on-scroll" id="dealFlipCard" style="max-width:360px;margin:auto;">
+      <div
+        class="flip-card reveal-on-scroll"
+        id="dealFlipCard"
+        style="max-width: 360px; margin: auto"
+      >
         <div class="flip-card-inner">
-          <article class="flip-card-front cards" aria-label="Front of deal card">
-            <h3 style="margin-bottom:8px;">Deal of the Day</h3>
+          <article
+            class="flip-card-front cards"
+            aria-label="Front of deal card"
+          >
+            <h3 style="margin-bottom: 8px">Deal of the Day</h3>
             <p>Hover or tap to reveal details</p>
           </article>
           <article class="flip-card-back cards" aria-label="Back of deal card">
-            <h3 style="margin-bottom:8px;">Limited Time Offer</h3>
+            <h3 style="margin-bottom: 8px">Limited Time Offer</h3>
             <p>Extra 10% off with code: SAVE10</p>
           </article>
         </div>
@@ -385,7 +419,11 @@
       <div class="container grid grid-three--cols">
         <div class="choose-left-div text-align--right">
           <!-- Feature 4: Scroll-triggered animations on choose items -->
-          <div class="why-choose--div reveal-on-scroll" data-aos="zoom-in-up" data-aos-delay="0">
+          <div
+            class="why-choose--div reveal-on-scroll"
+            data-aos="zoom-in-up"
+            data-aos-delay="0"
+          >
             <p class="common-text--highlight">1</p>
             <h3 class="section-common--title">Wide Selection</h3>
             <p>
@@ -423,7 +461,11 @@
             </p>
           </div>
         </div>
-        <div class="choose-center-div reveal-on-scroll" data-aos="zoom-in" data-aos-delay="300">
+        <div
+          class="choose-center-div reveal-on-scroll"
+          data-aos="zoom-in"
+          data-aos-delay="300"
+        >
           <figure>
             <img src="./images/ecompost.png" alt="thapa technical home page " />
           </figure>
@@ -481,17 +523,55 @@
     <section class="container tabs" id="infoTabs" aria-label="Information tabs">
       <!-- Feature 18: Tab switching animation -->
       <div class="tablist" role="tablist" aria-label="Information tabs">
-        <button role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1">Shipping</button>
-        <button role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2">Warranty</button>
-        <button role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3">Support</button>
+        <button
+          role="tab"
+          aria-selected="true"
+          aria-controls="panel-1"
+          id="tab-1"
+        >
+          Shipping
+        </button>
+        <button
+          role="tab"
+          aria-selected="false"
+          aria-controls="panel-2"
+          id="tab-2"
+        >
+          Warranty
+        </button>
+        <button
+          role="tab"
+          aria-selected="false"
+          aria-controls="panel-3"
+          id="tab-3"
+        >
+          Support
+        </button>
       </div>
-      <div id="panel-1" class="tab-panel active" role="tabpanel" aria-labelledby="tab-1">
+      <div
+        id="panel-1"
+        class="tab-panel active"
+        role="tabpanel"
+        aria-labelledby="tab-1"
+      >
         <p>Fast worldwide shipping on orders above $100.</p>
       </div>
-      <div id="panel-2" class="tab-panel" role="tabpanel" aria-labelledby="tab-2" hidden>
+      <div
+        id="panel-2"
+        class="tab-panel"
+        role="tabpanel"
+        aria-labelledby="tab-2"
+        hidden
+      >
         <p>All gadgets include a 1-year limited warranty.</p>
       </div>
-      <div id="panel-3" class="tab-panel" role="tabpanel" aria-labelledby="tab-3" hidden>
+      <div
+        id="panel-3"
+        class="tab-panel"
+        role="tabpanel"
+        aria-labelledby="tab-3"
+        hidden
+      >
         <p>24/7 chat and email support available.</p>
       </div>
     </section>
@@ -539,16 +619,38 @@
     </footer>
 
     <!-- ========== End footer Section ========== -->
-    
+
     <!-- Feature 16: Modal open/close animation -->
-    <div id="app-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+    <div
+      id="app-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+      aria-describedby="modalDesc"
+    >
       <div class="modal-content">
-        <header style="display:flex;align-items:center;justify-content:space-between;padding:16px 16px 0;">
-          <h3 id="modalTitle" style="margin:0;">About Thapa eComStore</h3>
-          <button id="closeModalButton" aria-label="Close modal" class="btn" style="padding:6px 10px;">Close</button>
+        <header
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 16px 0;
+          "
+        >
+          <h3 id="modalTitle" style="margin: 0">About Thapa eComStore</h3>
+          <button
+            id="closeModalButton"
+            aria-label="Close modal"
+            class="btn"
+            style="padding: 6px 10px"
+          >
+            Close
+          </button>
         </header>
-        <div style="padding:16px;">
-          <p id="modalDesc">Discover the latest gadgets and exclusive deals curated for you.</p>
+        <div style="padding: 16px">
+          <p id="modalDesc">
+            Discover the latest gadgets and exclusive deals curated for you.
+          </p>
         </div>
       </div>
     </div>
@@ -556,5 +658,9 @@
     <!-- Feature 14: Back-to-top button with smooth scroll -->
     <button id="backToTop" aria-label="Back to top">▲</button>
     <script type="module" src="./src/main.js"></script>
+    <!-- GSAP and animations -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="./src/animations.js"></script>
   </body>
 </html>

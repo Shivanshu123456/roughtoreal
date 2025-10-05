@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -42,7 +42,7 @@
             />-->
           </a>
         </div>
-        <nav class="navbar">
+        <nav class="navbar" id="primaryNav">
           <ul>
             <li class="nav-item">
               <a href="/" class="nav-link">Home </a>
@@ -62,7 +62,7 @@
                 class="nav-link add-to-cart-button"
                 id="cartValue"
               >
-                <i class="fa-solid fa-cart-shopping"></i> 0</a
+                <i class="fa-solid fa-cart-shopping cart-icon"></i> 0</a
               >
             </li>
           </ul>
@@ -71,6 +71,7 @@
     </header>
     <!-- ========== End Navbar ========== -->
     <!-- ========== Start About Section ========== -->
+    <div id="scroll-progress" aria-hidden="true"></div>
     <section class="section-contact">
       <div class="container">
         <h2 class="section-common--heading">contact us</h2>
@@ -154,7 +155,7 @@
 
     <!--* ========== Start Footer Section ========== -->
 
-    <footer class="section-footer">
+    <footer class="section-footer reveal">
       <script type="module" src="/src/footer.js"></script>
     </footer>
     <!-- Include the footer JavaScript file -->
@@ -163,43 +164,82 @@
 
     <!-- ========== End About Section ========== -->
 
+    <button id="backToTop" aria-label="Back to top">▲</button>
     <script type="module" src="/src/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="./src/animations.js"></script>
 
     <!-- JS SCRIPT  -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
       AOS.init();
     </script>
-  
-<!-- START: dynamic products injection (added by ChatGPT) -->
-<div id="dynamic-products" style="padding:20px;">
-  <h2>Products (dynamic)</h2>
-  <div id="products" style="display:flex;gap:16px;flex-wrap:wrap;"></div>
-</div>
 
-<!-- Video Modal -->
-<div id="videoModal" style="display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;z-index:9999;">
-  <div style="position:relative;width:90%;max-width:900px;background:#111;padding:10px;border-radius:8px;">
-    <button id="closeVideo" style="position:absolute;right:8px;top:6px;font-size:18px;">✕</button>
-    <video id="productVideo" controls style="width:100%;height:auto;background:#000;"></video>
-  </div>
-</div>
+    <!-- START: dynamic products injection (added by ChatGPT) -->
+    <div id="dynamic-products" style="padding: 20px">
+      <h2>Products (dynamic)</h2>
+      <div
+        id="products"
+        style="display: flex; gap: 16px; flex-wrap: wrap"
+      ></div>
+    </div>
 
-<script>
-(async function(){
-  try{
-    const res = await fetch('products.json');
-    const products = await res.json();
-    const container = document.getElementById('products');
-    products.forEach(p=>{
-      const card = document.createElement('div');
-      card.style.border = '1px solid #ddd';
-      card.style.borderRadius = '8px';
-      card.style.padding = '12px';
-      card.style.width = '260px';
-      card.style.boxSizing = 'border-box';
-      card.style.background = '#fff';
-      card.innerHTML = `
+    <!-- Video Modal -->
+    <div
+      id="videoModal"
+      style="
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      "
+    >
+      <div
+        style="
+          position: relative;
+          width: 90%;
+          max-width: 900px;
+          background: #111;
+          padding: 10px;
+          border-radius: 8px;
+        "
+      >
+        <button
+          id="closeVideo"
+          style="position: absolute; right: 8px; top: 6px; font-size: 18px"
+        >
+          ✕
+        </button>
+        <video
+          id="productVideo"
+          controls
+          style="width: 100%; height: auto; background: #000"
+        ></video>
+      </div>
+    </div>
+
+    <script>
+      (async function () {
+        try {
+          const res = await fetch("products.json");
+          const products = await res.json();
+          const container = document.getElementById("products");
+          products.forEach((p) => {
+            const card = document.createElement("div");
+            card.style.border = "1px solid #ddd";
+            card.style.borderRadius = "8px";
+            card.style.padding = "12px";
+            card.style.width = "260px";
+            card.style.boxSizing = "border-box";
+            card.style.background = "#fff";
+            card.innerHTML = `
         <h3 style="margin:6px 0;">${p.title}</h3>
         <p style="margin:6px 0;color:#666;">${p.description}</p>
         <p style="margin:6px 0;font-weight:600;">${p.price}</p>
@@ -208,35 +248,39 @@
           <button style="flex:1;padding:8px;border-radius:6px;border:0;cursor:pointer;background:#eee;">Add</button>
         </div>
       `;
-      container.appendChild(card);
-    });
+            container.appendChild(card);
+          });
 
-    // modal logic
-    const modal = document.getElementById('videoModal');
-    const vid = document.getElementById('productVideo');
-    const closeBtn = document.getElementById('closeVideo');
-    document.querySelectorAll('.playVideo').forEach(btn=>{
-      btn.addEventListener('click', e=>{
-        const v = btn.getAttribute('data-video');
-        vid.src = v;
-        modal.style.display = 'flex';
-        vid.play().catch(()=>{});
-      });
-    });
-    closeBtn.addEventListener('click', ()=>{
-      vid.pause();
-      vid.src = '';
-      modal.style.display = 'none';
-    });
-    // close on backdrop click
-    modal.addEventListener('click', (e)=>{
-      if(e.target === modal){ vid.pause(); vid.src=''; modal.style.display='none'; }
-    });
-  }catch(err){
-    console.error('Failed to load products.json', err);
-  }
-})();
-</script>
-<!-- END: dynamic products injection -->
-</body>
+          // modal logic
+          const modal = document.getElementById("videoModal");
+          const vid = document.getElementById("productVideo");
+          const closeBtn = document.getElementById("closeVideo");
+          document.querySelectorAll(".playVideo").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              const v = btn.getAttribute("data-video");
+              vid.src = v;
+              modal.style.display = "flex";
+              vid.play().catch(() => {});
+            });
+          });
+          closeBtn.addEventListener("click", () => {
+            vid.pause();
+            vid.src = "";
+            modal.style.display = "none";
+          });
+          // close on backdrop click
+          modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+              vid.pause();
+              vid.src = "";
+              modal.style.display = "none";
+            }
+          });
+        } catch (err) {
+          console.error("Failed to load products.json", err);
+        }
+      })();
+    </script>
+    <!-- END: dynamic products injection -->
+  </body>
 </html>
