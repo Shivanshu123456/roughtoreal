@@ -12,7 +12,6 @@ export const homeQuantityToggle = (event, id, stock) => {
       quantity += 1;
     } else if (quantity === stock) {
       quantity = stock;
-      
     }
   }
 

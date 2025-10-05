@@ -179,7 +179,8 @@ textarea:focus-visible {
   font-family: "urbanist";
   animation: toastAnimation 2s linear;
   -webkit-animation: toastAnimation 2s linear;
-  box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+  box-shadow:
+    inset 0px 0px 0.5em 0px var(--glow-color),
     0px 0px 0.5em 0px var(--glow-color);
 }
 
@@ -228,7 +229,8 @@ textarea:focus-visible {
 
 .section-navbar {
   width: 100%;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+  box-shadow:
+    rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
@@ -870,7 +872,8 @@ footer {
   /* margin-top: 1.2rem; */
 
   &:hover {
-    box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.16),
+    box-shadow:
+      inset 0px 1px 4px rgba(0, 0, 0, 0.16),
       inset 0px 0px 0px 3px rgb(51, 51, 51);
     background-color: var(--backgroundColor);
     color: var(--buttonColor);
@@ -964,7 +967,9 @@ footer {
   background-color: var(--backgroundSecondary);
   height: auto;
   width: 32rem;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+  box-shadow:
+    rgba(0, 0, 0, 0.16) 0px 1px 4px,
+    rgb(51, 51, 51) 0px 0px 0px 3px;
 }
 
 .productOrderTotal {
@@ -1020,7 +1025,9 @@ footer {
 .fade-in {
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity 600ms ease, transform 600ms ease;
+  transition:
+    opacity 600ms ease,
+    transform 600ms ease;
 }
 .fade-in.show {
   opacity: 1;
@@ -1029,7 +1036,9 @@ footer {
 
 /* Feature 3: Hover scaling on product cards */
 .cards {
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
 }
 .cards:hover {
   transform: translateY(-4px) scale(1.02);
@@ -1040,7 +1049,9 @@ footer {
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 500ms ease, transform 500ms ease;
+  transition:
+    opacity 500ms ease,
+    transform 500ms ease;
 }
 .reveal-on-scroll.in-view {
   opacity: 1;
@@ -1052,7 +1063,11 @@ footer {
 .add-to-cart-button,
 .contact-btn,
 .hero-btn a {
-  transition: transform 120ms ease, box-shadow 200ms ease, background-color 200ms ease, color 200ms ease;
+  transition:
+    transform 120ms ease,
+    box-shadow 200ms ease,
+    background-color 200ms ease,
+    color 200ms ease;
 }
 .btn:hover,
 .add-to-cart-button:hover,
@@ -1071,17 +1086,25 @@ footer {
   background: rgba(0, 0, 0, 0.35);
   z-index: 2000;
 }
-.loading-overlay.active { display: flex; }
-.loading-overlay[aria-busy="true"] { cursor: progress; }
+.loading-overlay.active {
+  display: flex;
+}
+.loading-overlay[aria-busy="true"] {
+  cursor: progress;
+}
 .spinner {
   width: 48px;
   height: 48px;
-  border: 4px solid rgba(255,255,255,0.35);
+  border: 4px solid rgba(255, 255, 255, 0.35);
   border-top-color: #fff;
   border-radius: 50%;
   animation: spin 900ms linear infinite;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /* Feature 7: Scroll progress bar */
 #scroll-progress {
@@ -1095,8 +1118,12 @@ footer {
 }
 
 /* Feature 8: Dropdown */
-.dropdown { position: relative; }
-.dropdown-toggle { cursor: pointer; }
+.dropdown {
+  position: relative;
+}
+.dropdown-toggle {
+  cursor: pointer;
+}
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -1106,12 +1133,15 @@ footer {
   color: var(--textColor);
   border: 1px solid var(--borderColor);
   border-radius: 8px;
-  box-shadow: 0 10px 18px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
   padding: 8px 0;
   opacity: 0;
   transform: translateY(8px);
   visibility: hidden;
-  transition: opacity 160ms ease, transform 160ms ease, visibility 160ms;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    visibility 160ms;
   z-index: 1500;
 }
 .dropdown.open .dropdown-menu {
@@ -1119,8 +1149,14 @@ footer {
   transform: translateY(0);
   visibility: visible;
 }
-.dropdown-menu a { display: block; padding: 8px 12px; color: inherit; }
-.dropdown-menu a:hover { background: #f4f6fb; }
+.dropdown-menu a {
+  display: block;
+  padding: 8px 12px;
+  color: inherit;
+}
+.dropdown-menu a:hover {
+  background: #f4f6fb;
+}
 
 /* Feature 10: Typewriter caret animation */
 .caret {
@@ -1129,7 +1165,16 @@ footer {
   border-right: 2px solid currentColor;
   animation: caretBlink 800ms steps(1, end) infinite;
 }
-@keyframes caretBlink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+@keyframes caretBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
 
 /* Feature 11: Parallax helper */
 .parallax-bg {
@@ -1156,7 +1201,9 @@ footer {
   transform-style: preserve-3d;
   transition: transform 500ms ease;
 }
-.flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
+.flip-card.is-flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
 .flip-card-front,
 .flip-card-back {
   position: absolute;
@@ -1164,13 +1211,17 @@ footer {
   backface-visibility: hidden;
   border-radius: 8px;
 }
-.flip-card-back { transform: rotateY(180deg); }
+.flip-card-back {
+  transform: rotateY(180deg);
+}
 
 /* Feature 13: Sticky navbar transition */
 .section-navbar.is-sticky {
-  background: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: saturate(180%) blur(8px);
-  transition: background 200ms ease, box-shadow 200ms ease;
+  transition:
+    background 200ms ease,
+    box-shadow 200ms ease;
   box-shadow: rgba(0, 0, 0, 0.06) 0px 6px 18px;
 }
 
@@ -1187,13 +1238,20 @@ footer {
   cursor: pointer;
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity 200ms ease, transform 200ms ease;
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
   z-index: 2500;
 }
-#backToTop.show { opacity: 1; transform: none; }
+#backToTop.show {
+  opacity: 1;
+  transform: none;
+}
 
 /* Feature 15: Tooltip */
-[data-tooltip] { position: relative; }
+[data-tooltip] {
+  position: relative;
+}
 [data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
@@ -1208,7 +1266,9 @@ footer {
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 160ms ease, transform 160ms ease;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
 }
 [data-tooltip]:hover::after {
   opacity: 1;
@@ -1222,21 +1282,28 @@ footer {
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0, 0, 0, 0.55);
   z-index: 4000;
 }
-#app-modal.open { display: flex; }
+#app-modal.open {
+  display: flex;
+}
 #app-modal .modal-content {
   width: min(92vw, 560px);
   background: #fff;
   color: var(--textColor);
   border-radius: 12px;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
   transform: scale(0.96);
   opacity: 0;
-  transition: transform 180ms ease, opacity 180ms ease;
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease;
 }
-#app-modal.open .modal-content { transform: scale(1); opacity: 1; }
+#app-modal.open .modal-content {
+  transform: scale(1);
+  opacity: 1;
+}
 
 /* Feature 17: Hamburger */
 .hamburger {
@@ -1255,30 +1322,63 @@ footer {
   width: 20px;
   height: 2px;
   background: var(--textColor);
-  transition: transform 160ms ease, opacity 160ms ease;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
 }
-.hamburger.is-active span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
-.hamburger.is-active span:nth-child(2) { opacity: 0; }
-.hamburger.is-active span:nth-child(3) { transform: translateY(-4px) rotate(-45deg); }
+.hamburger.is-active span:nth-child(1) {
+  transform: translateY(4px) rotate(45deg);
+}
+.hamburger.is-active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.is-active span:nth-child(3) {
+  transform: translateY(-4px) rotate(-45deg);
+}
 
 @media (max-width: 900px) {
-  .hamburger { display: inline-flex; }
-  .section-navbar .navbar { display: none; }
-  .section-navbar .navbar.open { display: block; }
-  .section-navbar .navbar ul { flex-direction: column; gap: 1.6rem; }
+  .hamburger {
+    display: inline-flex;
+  }
+  .section-navbar .navbar {
+    display: none;
+  }
+  .section-navbar .navbar.open {
+    display: block;
+  }
+  .section-navbar .navbar ul {
+    flex-direction: column;
+    gap: 1.6rem;
+  }
 }
 
 /* Feature 18: Tabs */
-.tabs { margin: 2rem 0; }
-.tablist { display: flex; gap: 8px; }
+.tabs {
+  margin: 2rem 0;
+}
+.tablist {
+  display: flex;
+  gap: 8px;
+}
 .tablist [role="tab"] {
   padding: 8px 12px;
   border: 1px solid var(--borderColor);
   border-radius: 6px;
   background: #fff;
 }
-.tab-panel { display: none; opacity: 0; transform: translateY(8px); transition: opacity 160ms ease, transform 160ms ease; }
-.tab-panel.active { display: block; opacity: 1; transform: none; }
+.tab-panel {
+  display: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+.tab-panel.active {
+  display: block;
+  opacity: 1;
+  transform: none;
+}
 
 /* Feature 2 & 9: Carousel */
 .carousel {
@@ -1292,7 +1392,9 @@ footer {
   display: flex;
   transition: transform 400ms ease;
 }
-.carousel-slide { min-width: 100%; }
+.carousel-slide {
+  min-width: 100%;
+}
 .carousel-nav {
   position: absolute;
   inset: auto 0 8px 0;
@@ -1307,13 +1409,37 @@ footer {
   border: none;
   background: #d1d8e5;
 }
-.carousel-nav button.active { background: #4484fb; }
-.carousel-controls { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 8px; }
-.carousel-controls button { border: none; background: rgba(255,255,255,0.8); border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+.carousel-nav button.active {
+  background: #4484fb;
+}
+.carousel-controls {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+.carousel-controls button {
+  border: none;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
 
 /* Feature 20: Footer reveal */
-.section-footer { opacity: 0; transform: translateY(20px); transition: opacity 400ms ease, transform 400ms ease; }
-.section-footer.reveal { opacity: 1; transform: none; }
+.section-footer {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 400ms ease,
+    transform 400ms ease;
+}
+.section-footer.reveal {
+  opacity: 1;
+  transform: none;
+}
 
 /* A11y helper */
 .visually-hidden {
